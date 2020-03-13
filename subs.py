@@ -5,6 +5,10 @@ from nltk.corpus import stopwords
 import string
 import nltk
 from pysubparser import parse
+from moviepy.editor import *
+from moviepy.editor import VideoFileClip, concatenate_videoclips
+from datetime import datetime, date, time, timedelta
+from dateutil import relativedelta
 
 
 file = open("D:\\code\\nltk\\subtitles\\shameless.srt", "rt")
@@ -36,15 +40,33 @@ words = [w for w in words if not w in junk_words]
 def getsubtitles():
     subtitles = parse('D:\\code\\nltk\\subtitles\\shameless.srt')
     newsubs = []
+    clipcounter = 0
     # for subtitle in subtitles:
     #     newsubs.append(subtitle.clean_up(remove_formatting=True, to_lowercase=True))
     # print(newsubs)
     for subtitle in subtitles:
         subtitle.clean_up(remove_formatting=True,to_lowercase=True)
         if "yeah" in str(subtitle):
+            t,t2 = subtitle.start,subtitle.end
+            newstart = time.isoformat(t)
+            newend = time.isoformat(t2)
+
+
+            print("newend")
+            clip3 = VideoFileClip("Shameless.1.mkv").subclip(newstart, newend)
+            #
+            final_clip = concatenate_videoclips([clip3])
+            final_clip.write_videofile("my_concatenation.mp4")
             newsubs.append('{} - {} > {}'.format(subtitle.start, subtitle.end, subtitle.text))
-    print(newsubs[0])
+    i = 0
+    while( i < len(newsubs)):
+        print(newsubs[i])
+        i = i+1
 
 
+# clip.write_videofile("share.mp4")
+#
+# clip1 = VideoFileClip("share.mp4")
+# clip2 = VideoFileClip("shameless.mp4").subclip(6, 8)
 
 getsubtitles()
