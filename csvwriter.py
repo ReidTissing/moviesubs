@@ -1,3 +1,11 @@
+import json
+
+import nltk
+from nltk.corpus import stopwords
+from nltk import word_tokenize
+from nltk.probability import *
+import csv
+
 import string
 from nltk import FreqDist
 from nltk.corpus import stopwords
@@ -30,26 +38,30 @@ def getFrequency(moviename, subfilepath):
     stop_words = set(stopwords.words('english'))
     words = [w for w in words if not w in stop_words]
     #until I implement my own tokenizer, exclude contractions
-    # junk_words = ['nt', 'na', 'gon', 'won']
-    junk_words = ['nt','na','gon','won','got','get', 'go', 'la']
+    #junk_words = ['nt', 'na', 'gon', 'won']
+    junk_words = ['nt','na','gon','won','got','get']
     words = [w for w in words if not w in junk_words]
     # test print first 100 words
     # print(words[:100])
 
     freqDist = FreqDist(words)
-    words = list(freqDist.keys())
-
-    # print(freqDist.plot(10))
-
-    fig = plt.figure(figsize=(10, 4))
-    plt.gcf().subplots_adjust(bottom=0.15)  # to avoid x-ticks cut-off
-    plt.xlabel('words', fontsize=18)
-    plt.ylabel('times said', fontsize=16)
-    fdist = FreqDist(freqDist)
-    fdist.plot(10, cumulative=False, title="Most Frequently Used Words in " + moviename)
-    plt.show()
-    # fig.suptitle('test title', fontsize=20)
-    fig.savefig(moviename + '.png', bbox_inches="tight")
 
 
-getFrequency("We Bought a Zoo", "D:\\code\\nltk\\subtitles\\weboughtazoo.srt")
+
+    # file = csv.writer(open('word_frequencies.csv', 'w'))
+    # for key, count in freqDist.most_common(200):
+    #     line = "['" + str(key) + "' , " + str(count) + "'],"
+    #     print(line)
+    #     file.writerow(line)
+
+    # with open('eggs.csv', 'w', newline='') as csvfile:
+    #     spamwriter = csv.writer(csvfile, delimiter=' ',
+    #                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
+    #     for key, count in freqDist.most_common(200):
+    #         spamwriter.writerow([key,count])
+
+    with open('data.json', 'w', encoding='utf-8') as f:
+        for key, count in freqDist.most_common(20):
+            json.dump([key,count], f, ensure_ascii=False, indent=4)
+
+getFrequency("War of the Planet of the Apes", "D:\\code\\nltk\\subtitles\\warapes.srt")

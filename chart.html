@@ -1,0 +1,89 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Word', 'Count'],
+[
+    "us",
+    30
+],[
+    "go",
+    28
+],[
+    "come",
+    27
+],[
+    "colonel",
+    20
+],[
+    "think",
+    20
+],[
+    "apes",
+    20
+],[
+    "must",
+    17
+],[
+    "hey",
+    16
+],[
+    "know",
+    16
+],[
+    "soldiers",
+    16
+],[
+    "caesar",
+    15
+],[
+    "ape",
+    15
+],[
+    "human",
+    15
+],[
+    "son",
+    15
+],[
+    "see",
+    14
+],[
+    "long",
+    14
+],[
+    "one",
+    13
+],[
+    "back",
+    13
+],[
+    "kill",
+    13
+],[
+    "look",
+    13
+]
+        ]);
+
+        var options = {
+          title: 'Word Frequency in Planet of the Apes',
+          pieSliceText: 'Value',
+          pieHole: 0.4,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="donutchart" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>

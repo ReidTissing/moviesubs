@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawSeriesChart);
+
+    function drawSeriesChart() {
+      var stringdata = `[
+["Movie","Release Date","Number of times know is said"],
+["Avengers Endgame", 4/26/2019, 99],
+["Avengers Infinity War", 4/27/2018, 51],
+["Bohemian Rhapsody", 2/12/2019, 59],
+["Fate of the Furious", 4/14/2017, 61],
+["Fight Club", 9/10/1999, 83],
+["Jurassic world fallen kingdom", 5/21/2018, 24],
+["Midsommar", 7/3/2019, 54],
+["Solo", 5/10/2018, 62],
+["Star Wars Force Awakens", 12/18/2015, 32],
+["Star Wars Last Jedi", 12/15/2017, 28],
+["Terminator Dark Fate", 10/23/2019, 31],
+["The Martian", 10/2/2015, 44],
+["Thor Ragnarok", 11/3/2017, 49],
+["War of the Planet of the Apes", 7/14/2017, 16],
+["We Bought A Zoo", 11/6/2011, 88]
+      ]`
+      var regex = /\d{1,2}\/\d{1,2}\/\d{4}/g;
+      var formattedData = stringdata.replace(regex, function(str){
+        return `new Date("${str}")`;
+      });
+      console.log(formattedData);
+      var data = google.visualization.arrayToDataTable(eval(formattedData));
+
+      var options = {
+        title: 'Movie Frequency with the word Know ' +
+               'and their release date',
+        hAxis: {title: 'Release Date',
+
+            format: 'MM/dd/YYYY',
+            gridlines: {count: 15}
+          },
+        vAxis: {title: 'Number of times know is said'},
+        bubble: {textStyle: {fontSize: 11}}      };
+
+      var chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div'));
+      chart.draw(data, options);
+    }
+    </script>
+  </head>
+  <body>
+    <div id="series_chart_div" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
+
+

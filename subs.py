@@ -1,9 +1,8 @@
 from datetime import time
 from moviepy.editor import VideoFileClip, concatenate_videoclips
 from pysubparser import parse
-
+#generates output movie based on subtitle input
 file = open(".\\subtitles\\Bohemian.Rhapsody.srt", "rt")
-# text = "This is your custom text . You can replace it with anything you want . Feel free to modify it and test ."
 text = file.read()
 file.close()
 
