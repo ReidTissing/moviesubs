@@ -5,7 +5,7 @@ from nltk.tokenize import word_tokenize
 import matplotlib.pyplot as plt
 
 
-def getFrequency(moviename, subfilepath, outputimg):
+def getFrequency(moviename, subfilepath):
     file = open(subfilepath, "rt")
     text = file.read()
     file.close()
@@ -29,7 +29,8 @@ def getFrequency(moviename, subfilepath, outputimg):
     # filter out stop words
     stop_words = set(stopwords.words('english'))
     words = [w for w in words if not w in stop_words]
-    junk_words = ['nt', 'get']
+    #until I implement my own tokenizer, exclude contractions
+    junk_words = ['nt', 'na', 'gon', 'won']
     words = [w for w in words if not w in junk_words]
     # test print first 100 words
     # print(words[:100])
@@ -47,7 +48,7 @@ def getFrequency(moviename, subfilepath, outputimg):
     fdist.plot(10, cumulative=False, title="Most Frequently Used Words in " + moviename)
     plt.show()
     # fig.suptitle('test title', fontsize=20)
-    fig.savefig(outputimg + '.png', bbox_inches="tight")
+    fig.savefig(moviename + '.png', bbox_inches="tight")
 
 
-getFrequency("Jurassic World Fallen Kingdom", "D:\\code\\nltk\\subtitles\\jwworld.srt", "jworld")
+getFrequency("Solo: A Star Wars Story", "D:\\code\\nltk\\subtitles\\Solo.srt")
